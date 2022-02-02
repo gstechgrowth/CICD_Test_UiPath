@@ -1,7 +1,7 @@
 trigger:
   - master
 variables:
-  - group: DEV
+  - group: devGrp
 
 stages:
   - stage: Build
@@ -15,7 +15,7 @@ stages:
           versionType: 'AutoVersion'
           projectJsonPath: '$(Build.SourcesDirectory)\project.json'
           outputType: 'Process'
-          orchestratorConnection: 'UiPath DEV'
+          orchestratorConnection: 'DEV ORCH'
           outputPath: '$(Build.ArtifactStagingDirectory)'
       - publish: $(Build.ArtifactStagingDirectory)
         artifact: drop
@@ -35,7 +35,7 @@ stages:
            steps:
             - task: UiPathDeploy@2
               inputs:
-                orchestratorConnection: 'UiPath DEV'
+                orchestratorConnection: 'DEV ORCH'
                 packagesPath: '$(Pipeline.Workspace)\drop\'
                 folderName: 'Shared'
                 
